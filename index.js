@@ -16,17 +16,9 @@ dotenv.config();
 
 mongoose.set("strictQuery", true);
 
-mongoose.connect(
-  process.env.MONGO_URL,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => {
-    console.log('Connected to MongoDB');
-  }
-);
-
-mongoose.connection.on('disconnected', () => {
-  console.log('mongoDB disconnected!');
-});
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -49,7 +41,7 @@ app.get('/', (req, res) => {
   res.status(200).send('Success')
 })
 
-// app.use('/v1/api', apiRoutes);
+app.use('/v1/api', apiRoutes);
 
 // 404 error
 app.all('*', (req, res, next) => {

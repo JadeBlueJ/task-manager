@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
-const secretKey = process.env.JWT_SecretKey;
+const { jwtSecret } = require('../utils/config');
 
 exports.verifyToken = async (req, res, next) => {
   try {
@@ -11,13 +11,14 @@ exports.verifyToken = async (req, res, next) => {
         message: 'No token provided!',
       });
     const bearerToken = bearerHeader.split(' ')[1];
-    jwt.verify(bearerToken, secretKey, (err, decoded) => {
+    jwt.verify(bearerToken, jwtSecret, (err, decoded) => {
+      console.log("decoded", decoded);
       if (err) {
         return res.status(401).json({
           message: 'Unauthorized access!',
         });
       }
-      res.locals.userId = decoded.userId;
+      req.user = decoded
       next();
     });
   } catch (error) {

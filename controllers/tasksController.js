@@ -21,7 +21,6 @@ const getTasks = async (req, res) => {
 
 const createTask = async (req, res) => {
   const { title, description, status, dueDate, category } = req.body;
-
   const newTask = new Task({
     title,
     description,

@@ -5,15 +5,14 @@ const {
   updateTask,
   deleteTask
 } = require('../controllers/tasksController');
-const { verifyToken } = require('../auth/auth'); 
+const { verifyToken } = require('../auth/auth');
 
 const router = express.Router();
 
-router.use(verifyToken);
 
-router.get('/tasks', getTasks);
-router.post('/tasks', createTask);
-router.put('/tasks/:id', updateTask);
-router.delete('/tasks/:id', deleteTask);
+router.get('/tasks', verifyToken, getTasks);
+router.post('/tasks', verifyToken, createTask);
+router.put('/tasks/:id', verifyToken, updateTask);
+router.delete('/tasks/:id', verifyToken, deleteTask);
 
 module.exports = router;
