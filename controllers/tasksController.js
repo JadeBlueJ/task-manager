@@ -1,19 +1,21 @@
 
+const Category = require('../models/Category');
 const Task = require('../models/Task');
 
 const getTasks = async (req, res) => {
-  const { status, category } = req.query;
+  // const { status, category } = req.query;
   try {
     const query = { user: req.user.id };
-    if (status) {
-      query.status = status;
-    }
-    if (category) {
-      query.category = category;
-    }
+    // if (status) {
+    //   query.status = status;
+    // }
+    // if (category) {
+    //   query.category = category;
+    // }
 
     const tasks = await Task.find(query).populate('category');
-    return res.status(200).json({ success: true, tasks });
+    const categories = await Category.find(query)
+    return res.status(200).json({ success: true, tasks, categories });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
@@ -52,7 +54,7 @@ const createTask = async (req, res) => {
 const updateTask = async (req, res) => {
   const { id } = req.params;
   const { updatePayload } = req.body;
-  console.log("updatePayload", {updatePayload});
+  console.log("updatePayload", { updatePayload });
 
   try {
     const updatedTask = await Task.findOneAndUpdate(

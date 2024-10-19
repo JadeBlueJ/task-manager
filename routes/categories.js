@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const categoriesController = require('../controllers/categoriesController');
-const { verifyToken } = require('../auth/auth'); 
+const { verifyToken } = require('../auth/auth');
 
-router.get('/categories', verifyToken, categoriesController.getCategories);
-router.post('/categories', verifyToken, categoriesController.createCategory);
-router.delete('/categories/:id', verifyToken, categoriesController.deleteCategory);
+router.get('/', verifyToken, categoriesController.getCategories);
+router.post('/', verifyToken, categoriesController.createCategory);
+router.delete('/:id', verifyToken, categoriesController.deleteCategory);
 
 module.exports = router;
