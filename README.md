@@ -1,8 +1,8 @@
-# Backend Project README
+# Task Manager(BE) Project README
 
 ## Overview
 
-Welcome to the backend project! This project is built using Node.js and npm, and it provides a robust API for the task manager application.
+Welcome to the task manager backend project! This project is built using Node.js and npm, and it provides a robust API for the task manager application.
 
 ## Prerequisites
 
