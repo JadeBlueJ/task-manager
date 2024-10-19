@@ -9,17 +9,25 @@ const getTasks = async (req, res) => {
     const query = { user: req.user.id };
     if (status !== 'All') { query.status = status }
     if (category !== 'All') { query.category = new mongoose.Types.ObjectId(category) }
-    console.log("query", query);
 
     const tasks = await Task.find(query).populate('category').skip(Number(skip)).limit(Number(limit));
-    const totalTasks = await Task.countDocuments(query); // Get total number of tasks
+    const totalTasks = await Task.countDocuments(query); 
     const categories = await Category.find(query);
-    return res.status(200).json({ success: true, tasks, categories, totalTasks }); // Return total tasks
+    return res.status(200).json({ success: true, tasks, categories, totalTasks }); 
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
 
+const getAllTasks = async (req, res) => {
+  try {
+    const query = { user: req.user.id };
+    const tasks = await Task.find(query)
+    return res.status(200).json({ success: true, tasks }); 
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 const createTask = async (req, res) => {
   const { title, description, status, dueDate, category } = req.body;
@@ -93,5 +101,6 @@ module.exports = {
   getTasks,
   createTask,
   updateTask,
-  deleteTask
+  deleteTask,
+  getAllTasks
 };
