@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopol
 
 
 app.use(bodyParser.json({ limit: '50mb' }));
-// app.use(cors());
+app.use(cors());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); // Allow requests from any origin
@@ -49,7 +49,7 @@ app.all('*', (req, res, next) => {
   res.status(err.status).send(err.message);
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8800;
 
 server.listen(PORT, () => {
   console.log(`Backend server is running!`, PORT)

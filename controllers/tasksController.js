@@ -4,7 +4,7 @@ const Task = require('../models/Task');
 const getTasks = async (req, res) => {
   const { status, category } = req.query;
   try {
-    const query = { user: req.user.id }; 
+    const query = { user: req.user.id };
     if (status) {
       query.status = status;
     }
@@ -12,7 +12,7 @@ const getTasks = async (req, res) => {
       query.category = category;
     }
 
-    const tasks = await Task.find(query).populate('category'); 
+    const tasks = await Task.find(query).populate('category');
     return res.status(200).json({ success: true, tasks });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
@@ -21,13 +21,22 @@ const getTasks = async (req, res) => {
 
 const createTask = async (req, res) => {
   const { title, description, status, dueDate, category } = req.body;
+
+  // Check for required fields
+  if (!title || !status) {
+    return res.status(400).json({
+      success: false,
+      message: 'Title, description, and status are required.'
+    });
+  }
+
   const newTask = new Task({
     title,
     description,
     status,
-    dueDate,
-    category,
-    user: req.user.id 
+    dueDate: dueDate || null, // Set to null if not provided
+    category: category || null, // Set to null if not provided
+    user: req.user.id
   });
 
   try {
@@ -39,14 +48,16 @@ const createTask = async (req, res) => {
 };
 
 
+
 const updateTask = async (req, res) => {
   const { id } = req.params;
-  const { title, description, status, dueDate, category } = req.body;
+  const { updatePayload } = req.body;
+  console.log("updatePayload", {updatePayload});
 
   try {
     const updatedTask = await Task.findOneAndUpdate(
       { taskId: id, user: req.user.id },
-      { title, description, status, dueDate, category },
+      updatePayload,
       { new: true }
     );
 

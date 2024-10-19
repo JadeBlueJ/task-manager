@@ -10,9 +10,9 @@ const { verifyToken } = require('../auth/auth');
 const router = express.Router();
 
 
-router.get('/tasks', verifyToken, getTasks);
-router.post('/tasks', verifyToken, createTask);
-router.put('/tasks/:id', verifyToken, updateTask);
-router.delete('/tasks/:id', verifyToken, deleteTask);
+router.get('/', verifyToken, getTasks);
+router.post('/', verifyToken, createTask);
+router.put('/:id', verifyToken, updateTask);
+router.delete('/:id', verifyToken, deleteTask);
 
 module.exports = router;
