@@ -1,25 +1,25 @@
 
+const { default: mongoose } = require('mongoose');
 const Category = require('../models/Category');
 const Task = require('../models/Task');
 
 const getTasks = async (req, res) => {
-  // const { status, category } = req.query;
+  const { skip = 0, limit = 5, status = 'All', category = 'All' } = req.query; // Default values
   try {
     const query = { user: req.user.id };
-    // if (status) {
-    //   query.status = status;
-    // }
-    // if (category) {
-    //   query.category = category;
-    // }
+    if (status !== 'All') { query.status = status }
+    if (category !== 'All') { query.category = new mongoose.Types.ObjectId(category) }
+    console.log("query", query);
 
-    const tasks = await Task.find(query).populate('category');
-    const categories = await Category.find(query)
-    return res.status(200).json({ success: true, tasks, categories });
+    const tasks = await Task.find(query).populate('category').skip(Number(skip)).limit(Number(limit));
+    const totalTasks = await Task.countDocuments(query); // Get total number of tasks
+    const categories = await Category.find(query);
+    return res.status(200).json({ success: true, tasks, categories, totalTasks }); // Return total tasks
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+
 
 const createTask = async (req, res) => {
   const { title, description, status, dueDate, category } = req.body;
