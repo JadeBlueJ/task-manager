@@ -2,7 +2,7 @@
 
 ## Overview
 
-Welcome to the backend project! This project is built using Node.js and npm, and it provides a robust API for your application.
+Welcome to the backend project! This project is built using Node.js and npm, and it provides a robust API for the task manager application.
 
 ## Prerequisites
 
@@ -16,15 +16,14 @@ Follow the steps below to get your environment set up:
 1. **Clone the repository:**
 
    ```
-   git clone https://github.com/JadeBlueJ/task-manager.git
-   cd task-manager
+        git clone https://github.com/JadeBlueJ/task-manager.git
+        cd task-manager
 
 2. **Download the .env file:**
 
-You need to set up your environment variables. Download the .env file from the following link:
-
+    You need to set up your environment variables. Download the .env file from the following link:
     ```
-    https://drive.google.com/file/d/1CF0gRR9YvZYtXcUUQ7s77lRg-ED12snF/view?usp=drive_link
+        https://drive.google.com/file/d/1CF0gRR9YvZYtXcUUQ7s77lRg-ED12snF/view?usp=drive_link
 
 Place the downloaded .env file in the root folder of your project.
 
