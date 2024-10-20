@@ -24,6 +24,7 @@ Follow the steps below to get your environment set up:
     You need to set up your environment variables. Download the env file from the following link,
     ```
         https://drive.google.com/file/d/1CF0gRR9YvZYtXcUUQ7s77lRg-ED12snF/view?usp=drive_link
+    ```
 
    Rename the downloaded file as '.env' instead of env, and place it in the root folder of your project. 
 
